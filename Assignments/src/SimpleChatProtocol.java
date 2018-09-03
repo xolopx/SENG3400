@@ -17,7 +17,7 @@ public class SimpleChatProtocol {
     public String processInput(String theInput) {
 
         String theOutput = null;
-        String[] lines  = theInput.split("\\r\\n");
+        String[] lines  = theInput.split("\\n");
         String[] usernameLine;
         String[] portSplit;
 
@@ -103,25 +103,25 @@ public class SimpleChatProtocol {
 
     private String rejectionMessage(Long timeDiff, String clientAddress){
 
-        String theMessage = ("SCP REJECT\r\n" +
-                             "TIMEDIFFERENTIAL " + timeDiff + "\r\n" +
-                             "REMOTEADDRESS " + clientAddress + "\r\n" +
-                             "SCP END\r\n");
+        String theMessage = ("SCP REJECT\n" +
+                             "TIMEDIFFERENTIAL " + timeDiff + "\n" +
+                             "REMOTEADDRESS " + clientAddress + "\n" +
+                             "SCP END\n");
         return theMessage;
     }
 
     private String acceptMessage(String username, String clientAddress, int clientPort){
-        String theMessage = ("SCP ACCEPT\r\n" +
-                             "USERNAME " + username + "\r\n" +
-                             "REMOTEADDRESS " + clientAddress + "\r\n" +
-                             "SERVERPORT " + clientPort + "\r\n" +
-                             "SCP END\r\n");
+        String theMessage = ("SCP ACCEPT\n" +
+                             "USERNAME " + username + "\n" +
+                             "REMOTEADDRESS " + clientAddress + "\n" +
+                             "SERVERPORT " + clientPort + "\n" +
+                             "SCP END\n");
         return theMessage;
     }
 
     private String acknowledgementMessage(String username, String serverAddress, int serverPort){
         String message;
-        message = "SCP ACKNOWLEDGE\r\nUSERNAME "+username+"\r\nSERVERADDRESS "+serverAddress+"\r\nSERVERPORT "+serverPort+"\r\nSCP END\r\n";
+        message = "SCP ACKNOWLEDGE\nUSERNAME "+username+"\nSERVERADDRESS "+serverAddress+"\nSERVERPORT "+serverPort+"\nSCP END\n";
         return message;
     }
 
@@ -129,7 +129,7 @@ public class SimpleChatProtocol {
         String message;
         String userInput;
         Scanner scan = new Scanner(System.in);
-        message = "SCP CHAT\r\nREMOTE ADDRESS "+ clientAddress + "\r\nREMOTEPORT " + clientPort + "\r\nMESSAGECONTENT\n\n";
+        message = "SCP CHAT\nREMOTE ADDRESS "+ clientAddress + "\nREMOTEPORT " + clientPort + "\nMESSAGECONTENT\n\n";
         System.out.println("Enter your message:");
         userInput = scan.nextLine();
         if(userInput.equals("DISCONNECT") ){
@@ -137,8 +137,8 @@ public class SimpleChatProtocol {
         }else {
 
             message += userInput;
-            message += "\r\n" +
-                    "SCP END\r\n";
+            message += "\n" +
+                    "SCP END\n";
 
         }
         return message;
@@ -146,7 +146,7 @@ public class SimpleChatProtocol {
 
     private String chatMessage(String wM){
         String message;
-        message = "SCP CHAT\r\nREMOTE ADDRESS "+ clientAddress + "\r\nREMOTEPORT " + clientPort + "\r\nMESSAGECONTENT\n\n"+ wM +"\r\nSCP END\r\n";
+        message = "SCP CHAT\nREMOTE ADDRESS "+ clientAddress + "\nREMOTEPORT " + clientPort + "\nMESSAGECONTENT\n"+ wM +"\nSCP END\n";
         return message;
     }
 
@@ -157,7 +157,7 @@ public class SimpleChatProtocol {
     private String exitMessage(){
         String theMessage;
 
-        theMessage = "SCP DISCONNECT\r\nSCP END\r\n";
+        theMessage = "SCP DISCONNECT\nSCP END\n";
 
         return theMessage;
     }
@@ -165,7 +165,7 @@ public class SimpleChatProtocol {
     private String ackExit(){
         String theMessage;
 
-        theMessage = "SCP ACKNOWLEDGE\r\nSCP END\r\n";
+        theMessage = "SCP ACKNOWLEDGE\nSCP END\n";
 
         return theMessage;
     }

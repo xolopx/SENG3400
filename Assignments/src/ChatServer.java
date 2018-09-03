@@ -40,11 +40,11 @@ public class ChatServer {
 
                 while ((inputLine = in.readLine()) != null) {
                     if (!inputLine.equals("")) {
-                        input += inputLine + "\r\n";
+                        input += inputLine + "\n";
                     }
 
 
-                    if (input.equals("SCP ACKNOWLEDGE\r\nSCP END\r\n")) {
+                    if (input.equals("SCP ACKNOWLEDGE\nSCP END\n")) {
                         System.out.println("\nClient:\n" + input);
                         System.out.println("Client has been disconnected");
                         in.close();
@@ -57,7 +57,7 @@ public class ChatServer {
                         System.out.println("\nClient:\n" + input);
 
                         if (firstLine(input).equals("SCP DISCONNECT")) {
-                            out.println("SCP ACKNOWLEDGE\r\nSCP END\r\n");
+                            out.println("SCP ACKNOWLEDGE\nSCP END\n");
                             System.out.println("Client has been disconnected");
                             in.close();
                             clientSocket.close();
@@ -69,7 +69,7 @@ public class ChatServer {
                         input = "";
 
                         if (firstLine(output).equals("SCP REJECT")) {
-                            System.out.println("Server has closed the socket\r\n");
+                            System.out.println("Server has closed the socket\n");
                             out.close();
                             clientSocket.close();
                             break;
@@ -89,7 +89,7 @@ public class ChatServer {
     private String firstLine(String message){
         String theFirstLine;
 
-        String[] theSplitMessage = message.split("\\r\\n");                     //The regex preserves the lines of text as god intended.
+        String[] theSplitMessage = message.split("\\n");
         theFirstLine = theSplitMessage[0];
 
         return theFirstLine;

@@ -37,12 +37,12 @@ public class ChatClient {
             while((inputLine = in.readLine()) != null) {
 
                 if(!inputLine.equals("")){
-                    input += inputLine + "\r\n";
+                    input += inputLine + "\n";
                 }
 
 
 
-                if(input.equals("SCP ACKNOWLEDGE\r\nSCP END\r\n")){
+                if(input.equals("SCP ACKNOWLEDGE\nSCP END\n")){
                     System.out.println("\nServer:\n" + input);
                     System.out.println("You have been disconnected from server");
                     in.close();
@@ -56,7 +56,7 @@ public class ChatClient {
                     System.out.println("\nServer:\n" + input);
 
                     if(firstLine(input).equals("SCP DISCONNECT")) {
-                        out.println("SCP ACKNOWLEDGE\r\nSCP END\r\n");
+                        out.println("SCP ACKNOWLEDGE\nSCP END\n");
                         System.out.println("You have been disconnected from server");
                         in.close();
                         sock.close();
@@ -75,7 +75,7 @@ public class ChatClient {
     }
 
     public String initialMessage(String hostname, int port){
-        String message = "SCP CONNECT\r\n" + "SERVERADDRESS " + hostname + "\r\n" + "SERVERPORT " + port + "\r\n";
+        String message = "SCP CONNECT\n" + "SERVERADDRESS " + hostname + "\n" + "SERVERPORT " + port + "\n";
         String username;
         Scanner scan = new Scanner(System.in);
 
@@ -83,7 +83,7 @@ public class ChatClient {
         username = scan.nextLine();
         System.out.println("\n");
 
-        message += "REQUESTCREATED " + System.currentTimeMillis() + "\r\n" + "USERNAME \"" + username + "\"\r\n" + "SCP END\r\n";
+        message += "REQUESTCREATED " + System.currentTimeMillis() + "\n" + "USERNAME \"" + username + "\"\n" + "SCP END\n";
 
         return message;
     }
@@ -91,7 +91,7 @@ public class ChatClient {
     private String firstLine(String message){
         String theFirstLine;
 
-        String[] theSplitMessage = message.split("\\r\\n");                     //The regex preserves the lines of text as god intended.
+        String[] theSplitMessage = message.split("\\n");                     //The regex preserves the lines of text as god intended.
         theFirstLine = theSplitMessage[0];
 
         return theFirstLine;
